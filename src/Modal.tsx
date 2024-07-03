@@ -1,50 +1,39 @@
-import React, {useState, ChangeEvent} from "react"
+import { ChangeEvent } from "react";
+import { ToDo } from "./oldApp";
 
-
-
-function Modal(props: { toDo: { title: string; content: string; }; setShowModal: (arg0: boolean) => void; }) {
-    const [info, setInfo] = useState({
-        title: props.toDo.title,
-        content: props.toDo.content
-    })
-     
-    function handleChange(event: ChangeEvent<HTMLInputElement>) {
-        const {name , value} = event.target
-        
-        setInfo(data => ({
-            ...data,
-            [name]: value
-        }))
-    }
-
-    return (
-        <div className="overlay">
-            <div className="modal">
-                <button onClick={()=> props.setShowModal(false)}>X</button>
-                <input 
-                required 
-                maxLength={30} 
-                onChange={handleChange}
-                placeholder= "Title" 
-                name="Title"
-                value={info.title}
-                />
-                <input 
-                
-                required 
-                maxLength={200} 
-                onChange={handleChange}
-                placeholder= "Content" 
-                name="Content"
-                value={info.content}
-                />
-            </div>
-        </div>
-        
-        
-    )
-
-
+interface Props {
+  toDo: { title: string; content: string; find: number };
+  closeModal: () => void;
+  find: number;
+  updateToDo: (toDo: ToDo) => void;
 }
 
-export default Modal;
+export default function Modal(props: Props) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const { name, value } = event.target;
+    props.updateToDo({ ...props.toDo, [name]: value });
+  }
+  return (
+    <div className="overlay">
+      <div className="modal">
+        <button onClick={() => props.closeModal()}>X</button>
+        <input
+          required
+          maxLength={30}
+          onChange={handleChange}
+          placeholder="title"
+          name="title"
+          value={props.toDo.title}
+        />
+        <input
+          required
+          maxLength={200}
+          onChange={handleChange}
+          placeholder="content"
+          name="content"
+          value={props.toDo.content}
+        />
+      </div>
+    </div>
+  );
+}
