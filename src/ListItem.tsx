@@ -12,12 +12,10 @@ interface Props {
 
 function ListItem(props: Props) {
   const [showModal, setShowModal] = useState(false);
-  const [toDo, setToDo] = useState(props.toDo);
-  const [toDoList, setToDoList] = useState(props.toDoList);
 
   function deleteItem() {
-    console.log(toDo.find);
-    console.log(props.toDo.find);
+//    console.log(toDo.find);
+//    console.log(props.toDo.find);
     //console.log(toDoList);
     //console.log(toDoList.filter((item) => item.find !== props.toDo.find));
     props.setToDoList((previous) =>
